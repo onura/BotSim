@@ -23,7 +23,7 @@ class Commander(object):
     
     def sendCommand(self, interval, cmd):
         for i in range(interval[0], interval[1]+1):
-            self.__server.sendData(i, cmd)
+            self.__server.sendData(i, str(cmd))
         
         return True
             
