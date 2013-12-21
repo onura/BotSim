@@ -32,6 +32,6 @@ class DDoSModule(FeatureModule):
         print sout, serr
     
     def stop(self):
-        pass
+        self.__nping.kill()
         
         
