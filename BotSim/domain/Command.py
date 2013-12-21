@@ -4,6 +4,9 @@ Created on Dec 14, 2013
 @author: Onur
 '''
 
+from BotCommand import BOT_COMMAND
+from base64 import b64encode
+
 class Command(object):
     '''
     classdocs
@@ -20,8 +23,12 @@ class Command(object):
         self.arguments = list(arguments)
     
     def __str__(self):
-        retStr = self.cmd
+        retStr = BOT_COMMAND[self.cmd]
         for arg in self.arguments:
-            retStr = retStr + "," + arg
+            retStr = str(retStr) + "," + arg
         
         return retStr
+    
+    def getEncodedCommand(self):
+        return b64encode(self.__str__())
+    

@@ -5,12 +5,7 @@ Created on Dec 14, 2013
 '''
 
 
-class BotCommand(object):
-    '''
-    classdocs
-    '''
-    
-    HI = 0
-    DDOS_START = 1
-    DDOS_STOP = 2
+BOT_COMMAND = { "hi":0,
+                "ddos_start":1,
+                "ddos_stop":2 }
     

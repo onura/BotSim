@@ -4,6 +4,8 @@ Created on Dec 20, 2013
 @author: Onur
 '''
 
+from CommandParser import CommandParser
+
 class Bot(object):
     '''
     classdocs
@@ -19,12 +21,12 @@ class Bot(object):
         self.__client = client
         self.__modules = []
         
-    def runCommand(self):
-        pass
+    def runCommand(self, cmd):
+        print cmd
     
     def activate(self):
         self.__client.connect()
         while True:
             cmd = self.__client.waitForCommand()
-            print cmd
+            self.runCommand(CommandParser.parseCommand(cmd))
         

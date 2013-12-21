@@ -27,7 +27,7 @@ class Test(unittest.TestCase):
         
         time.sleep(8)
         
-        self.assertTrue(commander.sendCommand((0,1), "cmd 1"), "command sending problem")
+        self.assertTrue(commander.sendCommand((0,0), "cmd 1"), "command sending problem")
             
 
 

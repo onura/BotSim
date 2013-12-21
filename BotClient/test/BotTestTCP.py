@@ -11,10 +11,13 @@ from domain.Bot import Bot
 class Test(unittest.TestCase):
 
 
-    def testTCPConnection(self):
+    def TCPConnection(self):
         bot = Bot(TCPClient('127.0.0.1', 555))
         bot.activate()
 
+    def testCommandParser(self):
+        bot = Bot(TCPClient('127.0.0.1', 555))
+        bot.activate()
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

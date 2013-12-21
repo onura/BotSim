@@ -22,7 +22,7 @@ class CustomTCPRequestHandler(Thread):
         
     
     def run(self):
-        print self.socket.recv(1024)        
+        self.socket.recv(1024)        
         self.socket.send("Hi client\n")   
         
     def stop(self):

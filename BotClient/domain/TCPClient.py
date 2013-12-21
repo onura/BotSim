@@ -28,6 +28,7 @@ class TCPClient(object):
         self.__csocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.__csocket.connect((self.__serverName, self.__serverPort))
         self.__csocket.send("Hi server\n")
+        self.__csocket.recv(1024)
     
     def disconnect(self):
         self.__csocket.close()
