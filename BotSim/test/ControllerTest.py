@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
 
 
     def testCommandInput(self):
-        server = CustomTCPServer('localhost', 555)
+        server = CustomTCPServer('0.0.0.0', 555)
         server.startServer()
         controller = Controller(Commander(server))
         controller.waitAction()
