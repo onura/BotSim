@@ -7,20 +7,27 @@ Created on Dec 14, 2013
 from domain.Command import Command
 
 class Controller(object):
-    '''
-    classdocs
-    '''
+    """ Responsible for command parsing, and distributing.
+        
+        Controller gets commands from the botmaster, parses them
+        and invokes appropriate methods to run either a local command 
+        or send a remote one.
+        
+        Attributes:
+            commander: A Commander object
+    """
 
     commander = None
 
     def __init__(self, commander):
-        '''
-        Constructor
-        '''        
+        """ Initializes with a Commander object """
         self.commander = commander
     
     
-    def waitAction(self):        
+    def waitAction(self):
+        """ Waits the botmaster to input a command, decides whether
+            it's a local or remote command and calls relevant methods.
+        """        
         cline = raw_input("Enter a command with parameters: ")        
         cmd, interval = self.prepCommand(cline)
         
@@ -31,6 +38,7 @@ class Controller(object):
         
     
     def prepCommand(self, cline):
+        """Prepares a command to be run or sent"""
         cmdSplitted = cline.split(" ")
         if cmdSplitted[0] == "l":
                 return cmdSplitted[1:], None
@@ -39,7 +47,7 @@ class Controller(object):
             return cmd, (int(cmdSplitted[2]), int(cmdSplitted[3]))
     
     def localCommand(self, cmd):
-        print cmd
+        """Runs a local command"""
         if cmd[0] == "list-clients":
             self.commander.listClients()
             
