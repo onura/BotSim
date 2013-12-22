@@ -1,29 +1,40 @@
 '''
 Created on Dec 20, 2013
 
-@author: root
+@author: Onur
 '''
 
 class FeatureModule(object):
-    '''
-    classdocs
-    '''
+    """ An abstract class for runnable feature modules.
+        
+        This class is the base class for all runnable 
+        feature modules. It involves the most basic methods
+        of a runnable feature module.
+        
+        Attributes:
+            __name: Name of the module (ex: DDoS Module)
+            __results: The results of the module operation can 
+                be found here.
+    """
     
     __name = None
     __results = None
 
     def __init__(self, name):
-        '''
-        Constructor
-        '''
+        """ Initializes with a module name."""
         self.__name = name
         self.__results = []
     
     def start(self, *args):
-        raise NotImplementedError("This method should be implemented.")
+        """ Start method of a module. It has to be implemented
+            by every feature module. """
+        raise NotImplementedError("Start method should be implemented.")
     
     def stop(self):
-        raise NotImplementedError("This method should be implemented.")
+        """ Stop method of a module. It has to be implemented
+            by every feature module. """
+        raise NotImplementedError("Stop method should be implemented.")
 
     def getResults(self):
+        """ Returns the list of results."""
         return list(self.__results)

