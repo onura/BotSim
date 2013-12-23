@@ -11,7 +11,7 @@ from domain.Bot import Bot
 class Test(unittest.TestCase):
 
 
-    def testModule(self):
+    def Module(self):
         args = "--tcp -S random -p 80 -g random --flags SYN --delay 10ms -c 5 192.168.41.132"
         ddos = DDoSModule()
         ddos.start(args.split())

@@ -100,3 +100,5 @@ class CustomTCPServer(object):
         cList = []
         for i in range(self.getClientCount()):
             cList.append(self.getClient(i).getsockname())
+        
+        return cList         

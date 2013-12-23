@@ -30,7 +30,7 @@ class FeatureModule(object):
             by every feature module. """
         raise NotImplementedError("Start method should be implemented.")
     
-    def stop(self):
+    def stop(self, *args):
         """ Stop method of a module. It has to be implemented
             by every feature module. """
         raise NotImplementedError("Stop method should be implemented.")

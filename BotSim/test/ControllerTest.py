@@ -15,9 +15,10 @@ class Test(unittest.TestCase):
         server = CustomTCPServer('0.0.0.0', 555)
         server.startServer()
         controller = Controller(Commander(server))
+        
         controller.waitAction()
         controller.waitAction()
-
+        controller.waitAction()
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testCommandInput']

