@@ -6,8 +6,9 @@ Created on Dec 20, 2013
 
 import socket
 from threading import Thread
+from domain.CustomClient import CustomClient
 
-class TCPClient(object):
+class TCPClient(CustomClient):
     """ A TCP client.
         
         The client class is able to send and

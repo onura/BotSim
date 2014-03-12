@@ -7,8 +7,9 @@ Created on Dec 11, 2013
 from socket import socket
 from CustomTCPRequestHandler import CustomTCPRequestHandler
 from threading import Thread
+from domain.CustomServer import CustomServer
 
-class CustomTCPServer(object):
+class CustomTCPServer(CustomServer):
     """ A custom TCP server to handle TCP connections
         without closing the connection.
         
