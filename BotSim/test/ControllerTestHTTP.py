@@ -6,13 +6,14 @@ Created on Dec 14, 2013
 import unittest
 from domain.Controller import Controller
 from domain.Commander import Commander
-from domain.CustomTCPServer import CustomTCPServer
+from domain.CustomHTTPServer import CustomHTTPServer
 
 class Test(unittest.TestCase):
 
 
     def testCommandInput(self):
-        server = CustomTCPServer('0.0.0.0', 555)
+        #r ddos_start 10000 99999 --tcp -S random -p 80 -g random --flags SYN --delay 10ms -c 20 8.8.8.8
+        server = CustomHTTPServer('0.0.0.0', 80)
         server.startServer()
         controller = Controller(Commander(server))
         

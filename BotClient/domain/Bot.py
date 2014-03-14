@@ -42,5 +42,6 @@ class Bot(object):
         self.__client.connect()
         while True:
             cmd = self.__client.waitForCommand()
+            print cmd            
             self.runCommand(CommandParser.parseCommand(cmd))
         

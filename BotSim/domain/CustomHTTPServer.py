@@ -50,7 +50,21 @@ class CustomHTTPServer(CustomServer):
     
     def sendData(self, clientID, data):
         """ Sends data to the client with the right id."""
-        pass
+        
+        try:
+            path = os.getcwd() + "/com/" + str(clientID)
+            f = open(path, "r")
+            lastCmd = int(f.readline()) + 1            
+            f.close()
+            f = open(path, "w")
+            f.write('{}'.format(lastCmd))
+            f.write("\n" + data)
+            f.close()
+            return True
+        except:
+            print 
+            print "sendData exception"
+            return False
     
     def getData(self, clientID):
         """ Gets data from the client with the right id. """
@@ -63,6 +77,7 @@ class CustomHTTPServer(CustomServer):
     def getClientsList(self):
         """ Returns the IP addresses of clients'."""
         return self.__clientPool 
+        
     
     def __checkLastAccess(self):
         path = os.getcwd() + "/com/"
@@ -82,6 +97,8 @@ class CustomHTTPServer(CustomServer):
                     os.remove(path + f)
             
             self.__clientPool = newList 
-            sleep(5)
+            sleep(2)
             
-        
+    def getClientIds(self):
+        self.__clientPool.sort()
+        return self.__clientPool

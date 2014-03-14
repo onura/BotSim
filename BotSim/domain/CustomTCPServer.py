@@ -103,3 +103,6 @@ class CustomTCPServer(CustomServer):
             cList.append(self.getClient(i).getsockname())
         
         return cList         
+    
+    def getClientIds(self):
+        return range(0, len(self.__clientPool))

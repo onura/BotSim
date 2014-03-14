@@ -6,11 +6,12 @@ Created on Dec 14, 2013
 import unittest, time
 from domain.CustomHTTPServer import CustomHTTPServer
 from domain.Commander import Commander
+from domain.Command import Command
 
 class Test(unittest.TestCase):
 
 
-    def testListClients(self):
+    def ListClients(self):
         server = CustomHTTPServer('0.0.0.0', 80)
         server.startServer()
         commander = Commander(server)
@@ -21,14 +22,14 @@ class Test(unittest.TestCase):
         commander.listClients()
         server.stopServer()
     
-    def SendCommands(self):
+    def testSendCommands(self):
         server = CustomHTTPServer('0.0.0.0', 80)
         server.startServer()
         commander = Commander(server)
         
         time.sleep(8)
         
-        self.assertTrue(commander.sendCommand((0,0), "cmd 1"), "command sending problem")
+        self.assertTrue(commander.sendCommand((10000,99999), Command("hi", "args")), "command sending problem")
             
 
 

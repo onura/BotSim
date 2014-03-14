@@ -45,7 +45,7 @@ class CustomHTTPRequestHandler(SimpleHTTPRequestHandler):
             newFile[-1] = '{}'.format(newId)
             newFile = '/'.join(newFile)
             f = open(newFile, "w")
-            f.write("init\n")
+            f.write("1\ninit")
             f.close() 
             
         else:

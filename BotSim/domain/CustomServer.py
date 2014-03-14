@@ -54,5 +54,8 @@ class CustomServer(object):
     @abstractmethod        
     def getClientsList(self):
         """ Returns the IP addresses of clients'."""
-        pass 
-        
+        pass
+    
+    @abstractmethod 
+    def getClientIds(self):
+        pass

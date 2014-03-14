@@ -4,6 +4,8 @@ Created on Dec 14, 2013
 @author: Onur
 '''
 
+from bisect import bisect_left, bisect_right
+
 class Commander(object):
     """ Runs or sends commands
         
@@ -27,8 +29,19 @@ class Commander(object):
     
     def sendCommand(self, interval, cmd):
         """ Sends a command to the clients in the given interval"""
-        for i in range(interval[0], interval[1]+1):
-            self.__server.sendData(i, cmd.getEncodedCommand())
+        
+        cids = self.__server.getClientIds()
+        index = self.calcRange(interval[0], interval[1], cids)
+        
+        for i in index:
+            self.__server.sendData(cids[i], cmd.getEncodedCommand())
         
         return True
+    
+    def calcRange(self, start, end, array):
+        s = bisect_right(array,start)
+        e = bisect_left(array,end)
+        
+        return (s, e)
+
             
