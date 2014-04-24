@@ -6,6 +6,8 @@ Created on Mar 12, 2014
 
 import os
 import random
+import cgi
+from base64 import decodestring
 from SimpleHTTPServer import SimpleHTTPRequestHandler
 
 class CustomHTTPRequestHandler(SimpleHTTPRequestHandler):
@@ -81,6 +83,21 @@ class CustomHTTPRequestHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         return f
     
+
+    def do_POST(self):
+        # Use cgi module to retrieve data from POST as a form
+        form = cgi.FieldStorage(
+                fp=self.rfile,
+                headers=self.headers,
+                environ={'REQUEST_METHOD':'POST',
+                         'CONTENT_TYPE':self.headers['Content-Type'],
+                         })
+        # We can get value from the form key like we did in dictionary class
+        encode = form['result'].value
+        # Decide the value from base64 string
+        decode = decodestring(encode)
+        self.wfile.write('Ok')
+        print decode
 
 
         

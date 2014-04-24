@@ -5,6 +5,8 @@ Created on Dec 14, 2013
 '''
 
 from domain.Command import Command
+from domain.BotCommand import BOT_COMMAND
+from domain.HashCrackUtils import HashCrackUtils
 
 class Controller(object):
     """ Responsible for command parsing, and distributing.
@@ -34,7 +36,16 @@ class Controller(object):
         if interval is None: 
             self.localCommand(cmd)
         else:
-            self.commander.sendCommand(interval, cmd)
+            if BOT_COMMAND[cmd.cmd] == BOT_COMMAND['hcrack_start']:
+                clients = self.commander.getServer().getClientsList()
+                hcutils = HashCrackUtils()
+                splittedList = hcutils.splitFile(cmd.arguments[1], len(clients))
+                for i in range(len(clients)):
+                    cmd.arguments[1] = splittedList[i]                    
+                    self.commander.sendSingleCommand(int(clients[i]), cmd)
+                     
+            else:    
+                self.commander.sendCommand(interval, cmd)         
         
     
     def prepCommand(self, cline):

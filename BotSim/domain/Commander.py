@@ -28,7 +28,7 @@ class Commander(object):
         print self.__server.getClientsList() 
     
     def sendCommand(self, interval, cmd):
-        """ Sends a command to the clients in the given interval"""
+        """ Sends a command to the clients in the given interval"""        
         
         cids = self.__server.getClientIds()
         index = self.calcRange(interval[0], interval[1], cids)
@@ -38,10 +38,16 @@ class Commander(object):
         
         return True
     
+    def sendSingleCommand(self, cid, cmd):
+        self.__server.sendData(cid, cmd.getEncodedCommand())
+    
     def calcRange(self, start, end, array):
         s = bisect_right(array,start)
         e = bisect_left(array,end)
         
         return (s, e)
+    
+    def getServer(self):
+        return self.__server
 
             

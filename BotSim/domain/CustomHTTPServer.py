@@ -49,8 +49,7 @@ class CustomHTTPServer(CustomServer):
         return len(self.__clientPool)
     
     def sendData(self, clientID, data):
-        """ Sends data to the client with the right id."""
-        
+        """ Sends data to the client with the right id."""        
         try:
             path = os.getcwd() + "/com/" + str(clientID)
             f = open(path, "r")

