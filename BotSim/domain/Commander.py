@@ -39,9 +39,11 @@ class Commander(object):
         return True
     
     def sendSingleCommand(self, cid, cmd):
+        """ Sends a command to the given client"""    
         self.__server.sendData(cid, cmd.getEncodedCommand())
     
     def calcRange(self, start, end, array):
+        """ Calculates the client interval range. """
         s = bisect_right(array,start)
         e = bisect_left(array,end)
         

