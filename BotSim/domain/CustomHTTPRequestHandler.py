@@ -97,7 +97,11 @@ class CustomHTTPRequestHandler(SimpleHTTPRequestHandler):
         # Decide the value from base64 string
         decode = decodestring(encode)
         self.wfile.write('Ok')
+        print
         print decode
+        
+    def log_message(self, format, *args):
+        return
 
 
         
