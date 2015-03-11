@@ -23,7 +23,7 @@ if __name__ == '__main__':
     logger.disabled = True
     
     #server = CustomHTTPServer('192.168.41.1', 80)
-    server = CustomHTTPServer('127.0.0.1', 80)
+    server = CustomHTTPServer('0.0.0.0', 80)
     server.startServer()
     controller = Controller(Commander(server))
     

@@ -4,7 +4,7 @@ Created on Mar 13, 2014
 @author: Onur
 '''
 
-import httplib
+import urllib2 
 from time import sleep
 from threading import Thread
 from domain.CustomClient import CustomClient
@@ -25,9 +25,7 @@ class HTTPClient(CustomClient):
         self.__address = (ip, port)
 
     def connect(self):
-        conn = httplib.HTTPConnection(self.__address[0], self.__address[1])
-        conn.request("GET", "/com/getid")
-        response = conn.getresponse()
+        response = urllib2.urlopen("http://{0}:{1}/com/getid".format(self.__address[0], self.__address[1]))
         self.__id = response.read()
         print self.__id
     
@@ -51,11 +49,9 @@ class HTTPClient(CustomClient):
     
     def __fetchCommand(self):        
         while True:
-            conn = httplib.HTTPConnection(self.__address[0], self.__address[1])
-            conn.request("GET", "/com/"+self.__id)             
-            response = conn.getresponse()
+            response = urllib2.urlopen("http://{0}:{1}/com/{2}".format(self.__address[0], self.__address[1], self.__id))
             
-            if response.status == 200:
+            try:
                 data = response.read()
                 data = data.split('\n')
 
@@ -68,7 +64,7 @@ class HTTPClient(CustomClient):
                         self.__lastCmd.append(data[1])
                         self.__isNewCmd = True
                         return
-            else:
+            except URLError, e:
                 return
             sleep(self.CHECK_TIME)
     

